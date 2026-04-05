@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700&display=swap');
+@import 'leaflet/dist/leaflet.css';
+
+:root {
+  --color-primary: #2D5016; /* Forest Green */
+  --color-secondary: #F5E6C8; /* Warm Sand */
+  --color-surface: #FFFFFF;
+  --color-background: #FAFAFA;
+  --color-text-main: #1A1A1A;
+  --color-text-muted: #666666;
+  --color-border: #E0E0E0;
+  --color-danger: #D32F2F;
+
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --border-radius: 12px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-hover: 0 8px 16px rgba(0,0,0,0.1);
+  --transition: all 0.2s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-background);
+  color: var(--color-text-main);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+/* Base App Layout */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  max-width: 480px; /* Mobile first */
+  margin: 0 auto;
+  background-color: var(--color-surface);
+  box-shadow: 0 0 20px rgba(0,0,0,0.05);
+  position: relative;
+  overflow-x: hidden;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+  padding-bottom: 80px; /* Space for bottom nav */
+  overflow-y: auto;
+}
+
+/* Layout Utility Classes */
+.filters-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.filters-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.filters-row::-webkit-scrollbar {
+  display: none;
+}
+
+.location-filters {
+  display: flex;
+  gap: 12px;
+}
+
+.listings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+@media (min-width: 769px) {
+  .app-container {
+    max-width: 1200px;
+    padding: 0 24px;
+  }
+
+  .filters-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filters-row {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .listings-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: white;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.header-nav a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-main);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: var(--transition);
+}
+
+.header-nav a:hover {
+  color: var(--color-primary);
+}
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+  .header-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+  }
+}
