@@ -3,6 +3,9 @@ import { useWishlist } from '../context/WishlistContext';
 import { useAuth } from '../context/AuthContext';
 import { Camera, Check } from 'lucide-react';
 import FolderCard from '../components/FolderCard';
+import ListingCard from '../components/ListingCard';
+import ListingModal from '../components/ListingModal';
+import { mockListings } from '../data/mockListings';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
@@ -40,7 +43,37 @@ const Profile = () => {
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempName, setTempName] = useState(user.name);
   
+  const [suggestionListings, setSuggestionListings] = useState([]);
+  const [selectedListing, setSelectedListing] = useState(null);
+
   const fileInputRef = useRef(null);
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    setSuggestionListings(prev => {
+      const stillUnsaved = prev.filter(listing => !wishlist.find(saved => saved.id === listing.id));
+      if (stillUnsaved.length === prev.length && prev.length > 0) return prev;
+      const unsavedPool = mockListings.filter(listing => !wishlist.find(saved => saved.id === listing.id) && !stillUnsaved.find(p => p.id === listing.id));
+      const shuffledPool = [...unsavedPool].sort(() => 0.5 - Math.random());
+      const needed = Math.max(0, 6 - stillUnsaved.length);
+      const newAdditions = shuffledPool.slice(0, needed);
+      return [...stillUnsaved, ...newAdditions];
+    });
+  }, [wishlist]);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) {
+      const cardWidth = scrollRef.current.firstElementChild?.clientWidth || 280;
+      scrollRef.current.scrollBy({ left: -(cardWidth + 16), behavior: 'smooth' });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) {
+      const cardWidth = scrollRef.current.firstElementChild?.clientWidth || 280;
+      scrollRef.current.scrollBy({ left: cardWidth + 16, behavior: 'smooth' });
+    }
+  };
 
   useEffect(() => {
     localStorage.setItem(`trappe_profile_photo_${user.email}`, photo);
@@ -220,6 +253,81 @@ const Profile = () => {
         )}
       </div>
 
+      {/* Your Next Adventure Section */}
+      {suggestionListings.length > 0 && (
+        <div style={{ marginBottom: '48px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '16px' }}>
+            <div>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 600, margin: 0 }}>Your Next Adventure 🌏</h3>
+              <p style={{ color: 'var(--color-text-muted)', margin: '4px 0 0 0', fontSize: '0.9rem' }}>A little inspiration for your next trip</p>
+            </div>
+            
+            {/* Desktop Arrows */}
+            <div className="carousel-arrow" style={{ gap: '8px' }}>
+              <button 
+                onClick={scrollLeft} 
+                style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1px solid black', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'var(--transition)' }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button 
+                onClick={scrollRight} 
+                style={{ width: '40px', height: '40px', borderRadius: '50%', border: '1px solid black', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', transition: 'var(--transition)' }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+            </div>
+          </div>
+          
+          <style>{`
+            .hide-scrollbar::-webkit-scrollbar { display: none; }
+            .carousel-card { flex-shrink: 0; width: calc((100% - 16px) / 1.5); scroll-snap-align: start; }
+            .carousel-arrow { display: none; }
+            .carousel-scroll-area { scroll-snap-type: x mandatory; }
+            @media (min-width: 768px) {
+              .carousel-card { width: calc((100% - 32px) / 3); }
+              .carousel-arrow { display: flex; }
+              .carousel-scroll-area { scroll-behavior: smooth; scroll-snap-type: none; }
+            }
+          `}</style>
+          
+          <div style={{ position: 'relative' }}>
+            <div 
+              ref={scrollRef}
+              className="hide-scrollbar carousel-scroll-area" 
+              style={{
+                display: 'flex',
+                gap: '16px',
+                overflowX: 'auto',
+                paddingBottom: '16px',
+                WebkitOverflowScrolling: 'touch',
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none'
+              }}
+            >
+              {suggestionListings.map(listing => (
+                <div key={listing.id} className="carousel-card">
+                  <ListingCard listing={listing} onClick={setSelectedListing} />
+                </div>
+              ))}
+            </div>
+            
+            {/* Scroll Right Shadow */}
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              bottom: '16px',
+              width: '60px',
+              background: 'linear-gradient(to left, rgba(0,0,0,0.06), transparent)',
+              pointerEvents: 'none',
+              borderTopRightRadius: '12px',
+              borderBottomRightRadius: '12px'
+            }} />
+          </div>
+        </div>
+      )}
+
       <div style={{ textAlign: 'center', marginBottom: '80px' }}>
         <button 
           onClick={handleLogout}
@@ -229,6 +337,7 @@ const Profile = () => {
         </button>
       </div>
 
+      {selectedListing && <ListingModal listing={selectedListing} onClose={() => setSelectedListing(null)} />}
     </div>
   );
 };
