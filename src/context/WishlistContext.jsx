@@ -8,9 +8,18 @@ export const WishlistProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const [folderNames, setFolderNames] = useState(() => {
+    const saved = localStorage.getItem('trappe_wishlist_folders');
+    return saved ? JSON.parse(saved) : {};
+  });
+
   useEffect(() => {
     localStorage.setItem('trappe_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
+
+  useEffect(() => {
+    localStorage.setItem('trappe_wishlist_folders', JSON.stringify(folderNames));
+  }, [folderNames]);
 
   const toggleWishlist = (listing) => {
     setWishlist((prev) => {
@@ -27,8 +36,15 @@ export const WishlistProvider = ({ children }) => {
     return wishlist.some((item) => item.id === listingId);
   };
 
+  const updateFolderName = (originalCountry, newName) => {
+    setFolderNames((prev) => ({
+      ...prev,
+      [originalCountry]: newName
+    }));
+  };
+
   return (
-    <WishlistContext.Provider value={{ wishlist, toggleWishlist, isSaved }}>
+    <WishlistContext.Provider value={{ wishlist, folderNames, toggleWishlist, isSaved, updateFolderName }}>
       {children}
     </WishlistContext.Provider>
   );

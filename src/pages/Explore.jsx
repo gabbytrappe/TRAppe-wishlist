@@ -3,8 +3,12 @@ import ListingCard from '../components/ListingCard';
 import ListingsMap from '../components/ListingsMap';
 import { mockListings } from '../data/mockListings';
 import ListingModal from '../components/ListingModal';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const Explore = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [typeFilter, setTypeFilter] = useState('All');
   const [countryFilter, setCountryFilter] = useState('All');
   const [cityFilter, setCityFilter] = useState('All');
@@ -101,6 +105,25 @@ const Explore = () => {
              <a href="#about">About Us</a>
              <a href="#explore">Explore Travel Options</a>
              <a href="#newsletter">Newsletter</a>
+             {user ? (
+               <span style={{ fontWeight: 600, color: 'black', fontFamily: '"Poppins", sans-serif', padding: '8px 0' }}>{user.name}</span>
+             ) : (
+               <button 
+                 onClick={() => navigate('/login')}
+                 style={{
+                   padding: '8px 16px',
+                   background: 'black',
+                   color: 'white',
+                   border: 'none',
+                   borderRadius: '20px',
+                   fontWeight: 600,
+                   cursor: 'pointer',
+                   fontFamily: '"Poppins", sans-serif'
+                 }}
+               >
+                 Login / Sign Up
+               </button>
+             )}
           </nav>
         </header>
         <div style={{ width: '100%', height: '350px', overflow: 'hidden', backgroundColor: 'var(--color-surface)', position: 'relative' }}>
@@ -121,12 +144,12 @@ const Explore = () => {
             padding: '24px 40px',
             textAlign: 'center',
             maxWidth: '90%',
-            width: '430px',
+            width: '520px',
             color: 'black',
             boxSizing: 'border-box'
           }}>
             <h1 style={{ fontFamily: '"Poppins", sans-serif', fontWeight: 700, fontSize: '2.5rem', margin: '0 0 12px 0', letterSpacing: '-1px', lineHeight: 1 }}>EXPLORE</h1>
-            <p style={{ fontSize: '0.95rem', lineHeight: '1.5', margin: 0, fontWeight: 400, fontFamily: '"Poppins", sans-serif' }}>
+            <p style={{ fontSize: '0.95rem', lineHeight: '1.5', margin: '0 auto', fontWeight: 400, fontFamily: '"Poppins", sans-serif', maxWidth: '480px' }}>
               Unique travel experiences around the world that are kind to the planet and good to its people ✌🏻
             </p>
           </div>

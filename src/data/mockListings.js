@@ -68,5 +68,105 @@ export const mockListings = [
     price: "$$$$",
     description: "Experience modern Swedish minimalism in this meticulously designed off-grid cabin. Powered by renewables and surrounded by serene forests and lakes for the ultimate peaceful getaway.",
     coordinates: [58.9103, 17.4475]
+  },
+  {
+    id: 8,
+    title: "MonMon Travel",
+    location: "Tallinn, Estonia",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Monmon_Travel_Concious_Tour_1.webp?v=1775504380",
+    type: "Tours & Experiences",
+    price: "$$-$$$$",
+    description: "",
+    coordinates: [59.4370, 24.7536]
+  },
+  {
+    id: 9,
+    title: "North Shore E-bike Tours",
+    location: "Oahu, United States",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Sustainable_Tour_Hawaii_-_North_Shore_E-Bike_Tour.jpg?v=1774926290",
+    type: "Tours & Experiences",
+    price: "$$-$$$",
+    description: "",
+    coordinates: [21.4389, -158.0001]
+  },
+  {
+    id: 10,
+    title: "Chiesa a Varena",
+    location: "Tuscany, Italy",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Chiesa_a_Varena_Conscious_Accommodation_5.webp?v=1775056518",
+    type: "Accommodation",
+    price: "$$-$$$",
+    description: "",
+    coordinates: [43.7696, 11.2558]
+  },
+  {
+    id: 11,
+    title: "Santorini by Maria",
+    location: "Santorini, Greece",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Sustainable_Tour_Santorini_by_Maria_2.jpg?v=1772470044",
+    type: "Tours & Experiences",
+    price: "$$-$$$",
+    description: "",
+    coordinates: [36.3932, 25.4615]
+  },
+  {
+    id: 12,
+    title: "Casa del Chiodo",
+    location: "Tuscany, Italy",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Casa_del_Chiodo_Conscious_Stay_9_015f550e-7f19-48db-b394-81e357da1e4d.jpg?v=1775062614",
+    type: "Accommodation",
+    price: "$$-$$$",
+    description: "",
+    coordinates: [43.4696, 11.1558]
+  },
+  {
+    id: 13,
+    title: "Your Friend In Reykjavik",
+    location: "Reykjavik, Iceland",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/local_tour_iceland_YourFriendInReykjavik_3.webp?v=1775395711",
+    type: "Tours & Experiences",
+    price: "$$-$$$",
+    description: "",
+    coordinates: [64.1466, -21.9426]
+  },
+  {
+    id: 14,
+    title: "Marcel Casa Hotel",
+    location: "Buenos Aires, Argentina",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Marcel_Casa_Hotel_Sustainable_Stay_2.webp?v=1775613262",
+    type: "Accommodation",
+    price: "$$-$$$",
+    description: "",
+    coordinates: [-34.6037, -58.3816]
+  },
+  {
+    id: 15,
+    title: "JazzFarm GuestHouse",
+    location: "Iași, Romania",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Sustainable_Tourism_Accomodation_JazzFarm_4.webp?v=1769701408",
+    type: "Accommodation",
+    price: "$$-$$$$",
+    description: "",
+    coordinates: [47.1585, 27.6014]
+  },
+  {
+    id: 16,
+    title: "Beyond Colombia",
+    location: "Bogotá, Colombia",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Beyond_Colombia_Sustainable_Tour.webp?v=1774950380",
+    type: "Tours & Experiences",
+    price: "$-$$",
+    description: "",
+    coordinates: [4.7110, -74.0721]
+  },
+  {
+    id: 17,
+    title: "Wander the Botanical Garden with a Naturalist",
+    location: "Buenos Aires, Argentina",
+    image: "https://cdn.shopify.com/s/files/1/0745/2180/5042/files/Wander_the_Botanical_Garden_Sustainable_Experience_7.webp?v=1773937861",
+    type: "Tours & Experiences",
+    price: "$-$$",
+    description: "",
+    coordinates: [-34.5800, -58.4200]
   }
 ];
